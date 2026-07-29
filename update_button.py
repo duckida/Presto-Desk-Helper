@@ -19,7 +19,9 @@ def leds_off():
     presto.set_led_rgb(6, 0, 0, 0)
     presto.set_led_rgb(1, 0, 0, 0)
     presto.set_led_rgb(2, 0, 0, 0)
+    presto.set_led_rgb(3, 0, 0, 0)
     presto.set_led_rgb(0, 0, 0, 0)
+
 
 
 def leds_on():
@@ -29,6 +31,7 @@ def leds_on():
     presto.set_led_rgb(6, 255, 255, 255)
     presto.set_led_rgb(1, 255, 255, 255)
     presto.set_led_rgb(2, 255, 255, 255)
+    presto.set_led_rgb(3, 255, 255, 255)
     presto.set_led_rgb(0, 255, 255, 255)
 
 touch_ticks = time.ticks_ms() # the current tick
