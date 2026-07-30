@@ -22,8 +22,6 @@ def leds_off():
     presto.set_led_rgb(3, 0, 0, 0)
     presto.set_led_rgb(0, 0, 0, 0)
 
-
-
 def leds_on():
     
     presto.set_led_rgb(4, 255, 255, 255)
