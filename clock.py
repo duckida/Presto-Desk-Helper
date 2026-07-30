@@ -103,5 +103,5 @@ while True:
         
     if time.ticks_ms() >= touch_ticks + (10*1000):
         leds_off()
-        presto.set_backlight(0.5)
+        presto.set_backlight(0.1)
     
