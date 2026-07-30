@@ -3,12 +3,16 @@ import picographics
 from touch import Button
 import jpegdec
 import time
+from picovector import PicoVector, Polygon
+
 
 presto = Presto()
 display = presto.display
 touch = presto.touch
+update_button = Polygon()
 button_1 = Button(5, 5, 40, 20)
 width = display.measure_text("2,400km", 1, 3)
+vector = PicoVector(presto.display)
 
 day = "Monday"
 date = "21"
@@ -77,8 +81,8 @@ while True:
     touch.poll()
 
     if button_1.is_pressed():
-        display.set_pen(BLACK)
-        display.rectangle(5, 5, 40, 20)
+        display.set_pen(LIGHT_BLUE)
+        vector.draw(update_button.rectangle(5, 5, 40, 20, corners=(7, 7, 7, 7), stroke=0))
         
         display.set_thickness(1)
         display.set_pen(TEXT_BLUE)
@@ -88,7 +92,7 @@ while True:
 
     else:
         display.set_pen(LIGHT_BLUE)
-        display.rectangle(5, 5, 40, 20)
+        vector.draw(update_button.rectangle(5, 5, 40, 20, corners=(7, 7, 7, 7), stroke=0))
         
         display.set_thickness(1)
         display.set_pen(TEXT_BLUE)

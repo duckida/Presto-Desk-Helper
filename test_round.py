@@ -1,15 +1,13 @@
 from presto import Presto
-from picovector import PicoVector, Polygon, Transform, ANTIALIAS_BEST
+from picovector import PicoVector, Polygon
 
 presto = Presto()
 vector = PicoVector(presto.display)
-
-transform = Transform()
-vector.set_transform(transform)
-
-vector.set_antialiasing(ANTIALIAS_BEST)
+display = presto.display
 
 my_shape = Polygon()
 
-
-vector.draw(my_shape.rectangle(5, 5, 40, 20, corners=(30, 30, 30, 30), stroke=0))
+LIGHT_BLUE = display.create_pen(234, 248, 251)
+display.set_pen(LIGHT_BLUE)
+vector.draw(update_button.rectangle(5, 5, 40, 20, corners=(7, 7, 7, 7), stroke=0))
+presto.update()
