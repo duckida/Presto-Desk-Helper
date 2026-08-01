@@ -60,7 +60,7 @@ display.set_thickness(3)
 display.set_font("sans")
 display.text("2,400km", 65, 80, scale=0.8) # how many km I have done
 display.set_thickness(2)
-display.text("20d 9h 30m", 68, 60, scale=0.5) # how much time I have taken
+display.text("21d 9h 30m", 68, 60, scale=0.5) # how much time I have taken
 display.text("Out of 10,921", 63, 100, scale=0.5) # out of total distance needed to be covered
 display.set_thickness(1)
 display.text("24%", 95, 120, scale=0.7) #percentage
