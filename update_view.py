@@ -85,7 +85,7 @@ def buttons_screen():
 
     presto.update()
 
-def update_view():
+def update_screen():
     global number_input_string
     while True:
         touch.poll()
@@ -171,4 +171,6 @@ def update_view():
         else:
             buttons_screen()
 
-update_view()
+
+if __name__ == "__main__":
+    update_screen()
