@@ -12,10 +12,7 @@ touch = presto.touch
 button_1 = Button(5, 5, 40, 20)
 width = display.measure_text("2,400km", 1, 3)
 
-day = day_name()
-date = "21"
-month = "May"
-date_string = f"{day} {date} {month}"
+date_string = get_date()
 time_string = get_time()[11:16]
 
 

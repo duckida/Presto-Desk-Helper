@@ -37,7 +37,9 @@ def get_date():
     localtime = time.localtime(datetime_object)
     
     day = localtime[6]
-    
+    day_number = localtime[2]
+    month = localtime[1]
+
     DAYS = [
     "Mon",
     "Tue",
@@ -46,13 +48,29 @@ def get_date():
     "Fri",
     "Sat",
     "Sun"]
+    
+    MONTHS = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"]
 
     day_name = DAYS[day]
-
-    print(day_name)
+    month_name = MONTHS[month-1]
     
-    return day_name
+    date_string = f"{day_name} {day_number} {month_name}"
+
+    return date_string
      
 if __name__ == "__main__":
-    # get_time()
-    get_date()
+    #get_time()
+    #get_date()
+    pass
