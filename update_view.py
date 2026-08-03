@@ -168,9 +168,14 @@ def update_screen():
             time.sleep_ms(200)
             presto.update()
             
+        if confirm.is_pressed():
+            # go back to home view
+            #presto.update()
+            pass
+            
         else:
             buttons_screen()
-
+            
 
 if __name__ == "__main__":
     update_screen()

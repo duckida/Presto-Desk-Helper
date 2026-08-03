@@ -18,8 +18,7 @@ def get_time():
         print('Response content:', response_content)
         print(f'time: {response_content["datetime"]}')
         
-        return response_content
-        return datetime
+        return response_content["datetime"]
 
     except Exception as e:
         print('An error occurred during the request:', str(e))
