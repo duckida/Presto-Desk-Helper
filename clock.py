@@ -4,7 +4,7 @@ from touch import Button
 import jpegdec
 import time
 from update_view import *
-from getinfo import get_time
+from getinfo import get_time, get_date
 
 presto = Presto()
 display = presto.display
@@ -12,7 +12,7 @@ touch = presto.touch
 button_1 = Button(5, 5, 40, 20)
 width = display.measure_text("2,400km", 1, 3)
 
-day = "Monday"
+day = day_name()
 date = "21"
 month = "May"
 date_string = f"{day} {date} {month}"
@@ -99,6 +99,7 @@ while True:
         
     if time.ticks_ms() >= last_fetch + (1*1000):
         time_string = get_time()[11:16]
+        day = get_date()[8:10]
         last_fetch = time.ticks_ms()
     
     if touch.state:

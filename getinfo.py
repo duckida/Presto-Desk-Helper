@@ -22,6 +22,37 @@ def get_time():
 
     except Exception as e:
         print('An error occurred during the request:', str(e))
+                
+def get_date():
+    datetime_string = get_time()
+    
+    year = int(datetime_string[0:4])
+    month = int(datetime_string[5:7])
+    day = int(datetime_string[8:10])
+    hour = int(datetime_string[11:13])
+    minute = int(datetime_string[14:16])
+    second = int(datetime_string[17:19])
+    
+    datetime_object = time.mktime((year, month, day, hour, minute, second, 0, 0))
+    localtime = time.localtime(datetime_object)
+    
+    day = localtime[6]
+    
+    DAYS = [
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
+    "Sun"]
 
+    day_name = DAYS[day]
+
+    print(day_name)
+    
+    return day_name
+     
 if __name__ == "__main__":
-    get_time()
+    # get_time()
+    get_date()
