@@ -18,7 +18,9 @@ LIGHT_BLUE = display.create_pen(234, 248, 251)
 BLACK = display.create_pen(0, 0, 0)
 
 # welcome
+display.set_pen(LIGHT_BLUE)
 display.text("Welcome to Presto!", 10, 10, scale=2)
+presto.update()
 
 # fetch the time
 time_data = fetch_time() # fetch the datetime string
@@ -28,7 +30,10 @@ date_string = timedata_to_date(time_data) # call the function `timedata_to_date`
 seconds = int(timedata_to_seconds(time_data))
 
 time.sleep(60 - seconds)
-clock()
+
+time_data = fetch_time() # fetch the datetime string
+time_string = time_data[11:16] # extract the time part of it and set this as time string
+
 
 def leds_off():
     presto.set_led_rgb(4, 0, 0, 0)
@@ -73,7 +78,7 @@ def clock():
 
     display.set_pen(LIGHT_BLUE)
     display.set_thickness(3)
-    display.text(f"{date_string}", 10, 220, scale=0.9) # date text
+    display.text(f"{date_string}", 40, 220, scale=0.9) # date text
 
     display.set_pen(LIGHT_BLUE)
     display.set_thickness(8)
