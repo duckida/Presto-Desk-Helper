@@ -4,7 +4,7 @@ from touch import Button
 import jpegdec
 import time
 from update_view import *
-from getinfo import get_time, get_date
+from getinfo import *
 
 presto = Presto()
 display = presto.display
@@ -12,13 +12,23 @@ touch = presto.touch
 button_1 = Button(5, 5, 40, 20)
 width = display.measure_text("2,400km", 1, 3)
 
-date_string = get_date()
-time_string = get_time()[11:16]
-
 
 TEXT_BLUE = display.create_pen(34, 36, 91)
 LIGHT_BLUE = display.create_pen(234, 248, 251)
 BLACK = display.create_pen(0, 0, 0)
+
+# welcome
+display.text("Welcome to Presto!", 10, 10, scale=2)
+
+# fetch the time
+time_data = fetch_time() # fetch the datetime string
+
+time_string = time_data[11:16] # extract the time part of it and set this as time string
+date_string = timedata_to_date(time_data) # call the function `timedata_to_date` to convert it into a date (basically the get_date without the fetching part)
+seconds = int(timedata_to_seconds(time_data))
+
+time.sleep(60 - seconds)
+clock()
 
 def leds_off():
     presto.set_led_rgb(4, 0, 0, 0)
@@ -90,21 +100,25 @@ while True:
         presto.update()
 
     else:
-        touch_ticks = time.ticks_ms()
         clock()
         presto.update()
         
-    if time.ticks_ms() >= last_fetch + (1*1000):
-        time_string = get_time()[11:16]
-        day = get_date()[8:10]
+    if time.ticks_ms() >= last_fetch + (60*1000):
+        print("time update")
+        time_data = fetch_time() # fetch the datetime string
+        time_string = time_data[11:16] # extract the time part of it and set this as time string
+        
+        date_string = timedata_to_date(time_data) # call the function `timedata_to_date` to convert it into a date (basically the get_date without the fetching part)
+        
         last_fetch = time.ticks_ms()
     
     if touch.state:
         touch_ticks = time.ticks_ms()
+        print("leds on")
         leds_on()
         presto.set_backlight(1)
         
     if time.ticks_ms() >= touch_ticks + (10*1000):
+        print("leds off")
         leds_off()
         presto.set_backlight(0.1)
-    

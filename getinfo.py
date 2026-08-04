@@ -8,7 +8,9 @@ presto = Presto()
 
 presto.connect()   
 # Make GET request
-def get_time():
+
+
+def fetch_time():
     try:
         response = requests.get("https://gateway.timeapi.world/timezone/Europe/London", headers={"x-rapidapi-key": "1fa031b1ddmsh6269abb2d931465p130deejsn5c1cda14dd16"})
         # Get response content
@@ -19,13 +21,11 @@ def get_time():
         print(f'time: {response_content["datetime"]}')
         
         return response_content["datetime"]
-
+        
     except Exception as e:
         print('An error occurred during the request:', str(e))
                 
-def get_date():
-    datetime_string = get_time()
-    
+def timedata_to_date(datetime_string):
     year = int(datetime_string[0:4])
     month = int(datetime_string[5:7])
     day = int(datetime_string[8:10])
@@ -69,7 +69,11 @@ def get_date():
     date_string = f"{day_name} {day_number} {month_name}"
 
     return date_string
-     
+
+def timedata_to_seconds(datetime_string):
+    second = datetime_string[17:19]
+    return second
+
 if __name__ == "__main__":
     #get_time()
     #get_date()
