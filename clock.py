@@ -4,6 +4,7 @@ from touch import Button
 import jpegdec
 import time
 from getinfo import *
+from time_math import time_conversion
 
 presto = Presto()
 display = presto.display
@@ -151,7 +152,7 @@ def clocks():
 
     display.set_pen(LIGHT_BLUE)
     display.set_thickness(3)
-    display.text(f"{date_string}", 50, 220, scale=0.9) # date text
+    display.text(time_conversion(times), 50, 220, scale=0.9) # date text
 
     display.set_pen(LIGHT_BLUE)
     display.set_thickness(8)
