@@ -172,7 +172,7 @@ def clocks():
     display.set_pen(TEXT_BLUE)
     display.set_thickness(3)
     display.set_font("sans")
-    display.text(f"{distance} km", 65, 80, scale=0.8) # distance_value_string + km
+    display.text(f"{distance}km", 65, 80, scale=0.8) # distance_value_string + km
     
     
     display.set_thickness(2)
@@ -253,7 +253,7 @@ def check_update_screen_buttons():
     if btn_reset.is_pressed():
         number_input_string = ""
         display.set_pen(BLACK)
-        display.rectangle(76, 15, 200, 15)
+        display.rectangle(40, 15, 200, 15)
         time.sleep_ms(200)
         presto.update()
         
