@@ -11,25 +11,51 @@ display = presto.display
 touch = presto.touch
 button_1 = Button(5, 5, 40, 20)
 width = display.measure_text("2,400km", 1, 3)
-
-
+    
 TEXT_BLUE = display.create_pen(34, 36, 91)
 LIGHT_BLUE = display.create_pen(234, 248, 251)
 BLACK = display.create_pen(0, 0, 0)
 
-# welcome
-display.set_pen(LIGHT_BLUE)
-display.text("Welcome to Presto!", 10, 10, scale=2)
-presto.update()
+# clear the screen from what it was
+display.set_pen(BLACK)
+display.clear()
 
 # fetch the time
 time_data = fetch_time() # fetch the datetime string
 
 time_string = time_data[11:16] # extract the time part of it and set this as time string
 date_string = timedata_to_date(time_data) # call the function `timedata_to_date` to convert it into a date (basically the get_date without the fetching part)
+
 seconds = int(timedata_to_seconds(time_data))
 
-time.sleep(60 - seconds)
+# welcome
+display.set_pen(LIGHT_BLUE)
+display.text("Welcome to Presto!", 10, 10, scale=2)
+
+for i in range(60 - seconds):
+    display.set_pen(LIGHT_BLUE)
+    display.text("Waiting to get time.", 10, 30, scale=2)
+    display.text("Welcome to Presto!", 10, 10, scale=2)
+    presto.update()
+    time.sleep_ms(333)
+    display.set_pen(BLACK)
+    display.clear()
+    
+    display.set_pen(LIGHT_BLUE)
+    display.text("Waiting to get time..", 10, 30, scale=2)
+    display.text("Welcome to Presto!", 10, 10, scale=2)   
+    presto.update()
+    time.sleep_ms(333)
+    display.set_pen(BLACK)
+    display.clear()
+    
+    display.set_pen(LIGHT_BLUE)
+    display.text("Waiting to get time...", 10, 30, scale=2)
+    display.text("Welcome to Presto!", 10, 10, scale=2)
+    presto.update()
+    time.sleep_ms(333)
+    display.set_pen(BLACK)
+    display.clear()
 
 time_data = fetch_time() # fetch the datetime string
 time_string = time_data[11:16] # extract the time part of it and set this as time string
@@ -52,7 +78,10 @@ confirm = Button(145, 200, 80, 30)
 decimal = Button(15, 200, 30, 30)
 
 
-number_input_string = " "
+number_input_string = ""
+
+distance = 0.0
+times = 0.0
 
 def buttons_screen():
     display.set_pen(LIGHT_BLUE)
@@ -102,10 +131,10 @@ def buttons_screen():
     display.text(f"{number_input_string}", 70, 15, scale=2) # input value
     
     display.text("Distance adding:", 10, 35, scale=2) # distance adding
-    display.text("km", 210, 35, scale=2) # distance unit
+    display.text("km", 215, 35, scale=2) # distance unit
     
     display.text("Time adding:", 10, 55, scale=2) # time adding
-    display.text("min", 165, 55, scale=2) # time unit
+    display.text("min", 209, 55, scale=2) # time unit
 
     presto.update()
 
@@ -129,6 +158,7 @@ def leds_on():
     presto.set_led_rgb(0, 255, 255, 255)
             
 def clocks():
+    global times, distance
     # Create a new JPEG decoder for our PicoGraphics
     j = jpegdec.JPEG(display)
 
@@ -143,7 +173,9 @@ def clocks():
     display.set_pen(TEXT_BLUE)
     display.set_thickness(3)
     display.set_font("sans")
-    display.text("2,400km", 65, 80, scale=0.8) # how many km I have done
+    display.text(f"{distance}km", 65, 80, scale=0.8) # distance_value_string + km
+    
+    
     display.set_thickness(2)
     display.text("20d 9h 30m", 68, 60, scale=0.5) # how much time I have taken
     display.text("Out of 10,921", 63, 100, scale=0.5) # out of total distance needed to be covered
@@ -152,7 +184,7 @@ def clocks():
 
     display.set_pen(LIGHT_BLUE)
     display.set_thickness(3)
-    display.text(time_conversion(times), 50, 220, scale=0.9) # date text
+    display.text("time_conversion(times)", 50, 220, scale=0.9) # date text
 
     display.set_pen(LIGHT_BLUE)
     display.set_thickness(8)
@@ -166,132 +198,141 @@ def clocks():
     display.text("UPDATE", 8, 15, scale=0.3)
     presto.update()
     
-def update_screen():
-    global number_input_string
-    while True:
-        touch.poll()
+def check_update_screen_buttons():
+    global number_input_string, page, times, distance
 
-        if btn1.is_pressed():
-            number_input_string += "1"
-            time.sleep_ms(200)
-            presto.update()
-            
-        if btn2.is_pressed():
-            number_input_string += "2"
-            time.sleep_ms(200)
-            presto.update()
+    if btn1.is_pressed():
+        number_input_string += "1"
+        time.sleep_ms(200)
+        presto.update()
         
-        if btn3.is_pressed():
-            number_input_string += "3"
-            time.sleep_ms(200)
-            presto.update()
-            
-        if btn4.is_pressed():
-            number_input_string += "4"
-            time.sleep_ms(200)
-            presto.update()
-            
-        if btn5.is_pressed():
-            number_input_string += "5"
-            time.sleep_ms(200)
-            presto.update()
-            
-        if btn6.is_pressed():
-            number_input_string += "6"
-            time.sleep_ms(200)
-            presto.update()
-            
-        if btn7.is_pressed():
-            number_input_string += "7"
-            time.sleep_ms(200)
-            presto.update()
-            
-        if btn8.is_pressed():
-            number_input_string += "8"
-            time.sleep_ms(200)
-            presto.update()
-            
-        if btn9.is_pressed():
-            number_input_string += "9"
-            time.sleep_ms(200)
-            presto.update()
-            
-        if btn0.is_pressed():
-            number_input_string += "0"
-            time.sleep_ms(200)
-            presto.update()
+    if btn2.is_pressed():
+        number_input_string += "2"
+        time.sleep_ms(200)
+        presto.update()
+    
+    if btn3.is_pressed():
+        number_input_string += "3"
+        time.sleep_ms(200)
+        presto.update()
         
-        if btn_reset.is_pressed():
-            number_input_string = " "
-            display.set_pen(BLACK)
-            display.rectangle(76, 15, 200, 15)
-            time.sleep_ms(200)
-            presto.update()
-            
-        if decimal.is_pressed():
-            number_input_string += "."
-            time.sleep_ms(200)
-            presto.update()
-            
-        if add_to_distance.is_pressed():
-            display.text(f"{number_input_string}", 172, 35, scale=2) # distance value
-            distance_value_string = number_input_string
-            number_input_string = " "
-            display.set_pen(BLACK)
-            display.rectangle(76, 15, 200, 15)
-            time.sleep_ms(200)
-            presto.update()
+    if btn4.is_pressed():
+        number_input_string += "4"
+        time.sleep_ms(200)
+        presto.update()
         
-        if add_to_time.is_pressed():
-            display.text(f"{number_input_string}", 130, 55, scale=2) # distance value
-            time_value_string = number_input_string
-            number_input_string = " "
-            display.set_pen(BLACK)
-            display.rectangle(76, 15, 200, 15)
-            time.sleep_ms(200)
-            presto.update()
-            
-        if confirm.is_pressed():
-            clocks()
-            presto.update()
-            
-        else:
-            buttons_screen()
+    if btn5.is_pressed():
+        number_input_string += "5"
+        time.sleep_ms(200)
+        presto.update()
+        
+    if btn6.is_pressed():
+        number_input_string += "6"
+        time.sleep_ms(200)
+        presto.update()
+        
+    if btn7.is_pressed():
+        number_input_string += "7"
+        time.sleep_ms(200)
+        presto.update()
+        
+    if btn8.is_pressed():
+        number_input_string += "8"
+        time.sleep_ms(200)
+        presto.update()
+        
+    if btn9.is_pressed():
+        number_input_string += "9"
+        time.sleep_ms(200)
+        presto.update()
+        
+    if btn0.is_pressed():
+        number_input_string += "0"
+        time.sleep_ms(200)
+        presto.update()
+    
+    if btn_reset.is_pressed():
+        number_input_string = ""
+        display.set_pen(BLACK)
+        display.rectangle(40, 15, 200, 15)
+        time.sleep_ms(200)
+        presto.update()
+        
+    if decimal.is_pressed():
+        number_input_string += "."
+        time.sleep_ms(200)
+        presto.update()
+        
+    if add_to_distance.is_pressed():
+        display.text(f"{number_input_string}", 162, 35, scale=2) # distance value
+        print(number_input_string)
+        distance += float(number_input_string)
+        number_input_string = ""
+        display.set_pen(BLACK)
+        display.rectangle(40, 15, 200, 15)
+        time.sleep_ms(200)
+        presto.update()
+    
+    if add_to_time.is_pressed():
+        display.text(f"{number_input_string}", 125, 55, scale=2) # distance value
+        print(number_input_string)
+        times += float(number_input_string)
+        number_input_string = ""
+        display.set_pen(BLACK)
+        display.rectangle(40, 15, 200, 15)
+        time.sleep_ms(200)
+        presto.update()
+        
+    if confirm.is_pressed():
+        page = "home"
+        presto.update()
 
 touch_ticks = time.ticks_ms() # the current tick
 last_fetch = time.ticks_ms()
 presto.set_backlight(0.1)
 
-while True:
-    touch.poll()
+page = "home"
 
-    if button_1.is_pressed():
-        display.set_pen(BLACK)
-        display.clear()
-        buttons_screen()
-        update_screen()
-        presto.update()
-
-    else:
-        clocks()
-        presto.update()
-        
-    if time.ticks_ms() >= last_fetch + (60*1000):
-        print("time update")
-        time_data = fetch_time() # fetch the datetime string
-        time_string = time_data[11:16] # extract the time part of it and set this as time string
-        
-        date_string = timedata_to_date(time_data) # call the function `timedata_to_date` to convert it into a date (basically the get_date without the fetching part)
-        
-        last_fetch = time.ticks_ms()
+def main():
+    global page, touch_ticks, last_fetch
     
-    if touch.state:
-        touch_ticks = time.ticks_ms()
-        print("leds on")
-        leds_on()
-        presto.set_backlight(1)
+    while True:
+        touch.poll()
         
-    if time.ticks_ms() >= touch_ticks + (10*1000):
-        print("leds off")
-        leds_off()
-        presto.set_backlight(0.1)
+        if page == "home":
+            clocks()
+            presto.update()
+            
+            if button_1.is_pressed(): # time to switch views (only does this once)
+                page = "update"
+                display.set_pen(BLACK)
+                display.clear()
+            
+
+        elif page == "update":
+            buttons_screen()
+            check_update_screen_buttons()
+            presto.update()
+
+        if time.ticks_ms() >= last_fetch + (60*1000):
+            print("time update")
+            time_data = fetch_time() # fetch the datetime string
+            time_string = time_data[11:16] # extract the time part of it and set this as time string
+            
+            date_string = timedata_to_date(time_data) # call the function `timedata_to_date` to convert it into a date (basically the get_date without the fetching part)
+            
+            last_fetch = time.ticks_ms()
+        
+        if touch.state:
+            touch_ticks = time.ticks_ms()
+            print("leds on")
+            leds_on()
+            presto.set_backlight(1)
+            
+        if time.ticks_ms() >= touch_ticks + (10*1000):
+            print("leds off")
+            leds_off()
+            presto.set_backlight(0.1)
+            
+if __name__ == "__main__":
+    main()
