@@ -169,8 +169,7 @@ def update_screen():
             presto.update()
             
         if confirm.is_pressed():
-            # go back to home view
-            #presto.update()
+            clock()
             pass
             
         else:
@@ -179,3 +178,4 @@ def update_screen():
 
 if __name__ == "__main__":
     update_screen()
+    presto.update()
