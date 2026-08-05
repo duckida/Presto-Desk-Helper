@@ -20,6 +20,10 @@ BLACK = display.create_pen(0, 0, 0)
 display.set_pen(BLACK)
 display.clear()
 
+# welcome
+display.set_pen(LIGHT_BLUE)
+display.text("Welcome to Presto!", 10, 10, scale=2)
+
 # fetch the time
 time_data = fetch_time() # fetch the datetime string
 
@@ -27,10 +31,6 @@ time_string = time_data[11:16] # extract the time part of it and set this as tim
 date_string = timedata_to_date(time_data) # call the function `timedata_to_date` to convert it into a date (basically the get_date without the fetching part)
 
 seconds = int(timedata_to_seconds(time_data))
-
-# welcome
-display.set_pen(LIGHT_BLUE)
-display.text("Welcome to Presto!", 10, 10, scale=2)
 
 for i in range(60 - seconds):
     display.set_pen(LIGHT_BLUE)
@@ -175,16 +175,15 @@ def clocks():
     display.set_font("sans")
     display.text(f"{distance}km", 65, 80, scale=0.8) # distance_value_string + km
     
-    
     display.set_thickness(2)
-    display.text("20d 9h 30m", 68, 60, scale=0.5) # how much time I have taken
+    display.text(time_conversion(times), 68, 60, scale=0.5) # how much time I have taken
     display.text("Out of 10,921", 63, 100, scale=0.5) # out of total distance needed to be covered
     display.set_thickness(1)
-    display.text("24%", 95, 120, scale=0.7) #percentage
+    display.text(f"{str(round((int(distance)/10921)*100, 2))}%", 95, 120, scale=0.7) #percentage
 
     display.set_pen(LIGHT_BLUE)
     display.set_thickness(3)
-    display.text("time_conversion(times)", 50, 220, scale=0.9) # date text
+    display.text(f"{date_string}", 50, 220, scale=0.9) # date text
 
     display.set_pen(LIGHT_BLUE)
     display.set_thickness(8)
